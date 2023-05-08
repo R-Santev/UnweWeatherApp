@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "UnweWeatherApp": {
+      "commandName": "Project",
+      "remoteDebugEnabled": false
+    }
+  }
+}

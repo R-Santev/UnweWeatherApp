@@ -1,0 +1,168 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:UnweWeatherApp"
+             x:Class="UnweWeatherApp.ForecastPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="labelStyle"
+         TargetType="Label">
+                <Setter Property="FontSize"
+         Value="Medium" />
+                <Setter Property="TextColor"
+         Value="#146C94" />
+            </Style>
+            <Style x:Key="labelResultStyle"
+         TargetType="Label">
+                <Setter Property="FontSize"
+         Value="Medium" />
+                <Setter Property="Margin"
+         Value="10,0,0,0" />
+            </Style>
+            <Style x:Key="labelForecastStyle"
+       TargetType="Label">
+                <Setter Property="FontSize"
+            Value="Large" />
+                <Setter Property="TextColor"
+            Value="#B0DAFF" />
+            </Style>
+            <local:LongToDateTimeConverter x:Key="longToDateTimeConverter" />
+            <local:DayDurationTimeConverter x:Key="dayDurationTimeConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <StackLayout>
+        <Grid BackgroundColor="#19A7CE"
+ Padding="10,20,10,10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <Label Text="{Binding CurrentDate}"
+       Grid.Row="0"
+       Grid.ColumnSpan="3"
+       HorizontalOptions="Center"
+       TextColor="White"
+       FontAttributes="Bold"
+       FontSize="Medium" />
+
+            <Label x:Name="DeviceLabel" Text="Search by City"
+ Grid.ColumnSpan="3"
+       Grid.Row="1"
+ HorizontalOptions="Center"
+ TextColor="White"
+ FontAttributes="Bold"
+ FontSize="Medium" />
+
+            <Label Text="City:"
+ Grid.Row="2"
+ VerticalOptions="Center"
+ Style="{StaticResource labelStyle}"
+ TextColor="#C0C0C0" />
+            <Entry x:Name="_cityEntry"
+ Grid.Row="2"
+ Grid.Column="1"
+ Margin="5,0"
+VerticalOptions="Center"
+ BackgroundColor="White"
+ TextColor="Black"
+ Text="Sofia" />
+            <Button Grid.Row="2"
+ Grid.Column="2"
+Text="Show Weather"
+ BorderWidth="1"
+BorderColor="White"
+BackgroundColor="White"
+TextColor="Black"
+Clicked="OnGetWeatherButtonClicked" />
+        </Grid>
+        <ScrollView>
+            <StackLayout Padding="10">
+
+                <Label Text="Location"
+ Style="{StaticResource labelStyle}" />
+                <Label Text="{Binding Location}"
+ Style="{StaticResource labelResultStyle}" />
+
+                <Label Text="Min Temperature"
+ Style="{StaticResource labelStyle}" />
+                <Label Text="{Binding TempMin}"
+ Style="{StaticResource labelResultStyle}" />
+
+                <Label Text="Max Temperature"
+ Style="{StaticResource labelStyle}" />
+                <Label Text="{Binding TempMax}"
+ Style="{StaticResource labelResultStyle}" />
+
+                <Label Text="Time of Sunrise"
+ Style="{StaticResource labelStyle}" />
+                <Label Text="{Binding Sunrise, Converter={StaticResource longToDateTimeConverter}}"
+ Style="{StaticResource labelResultStyle}" />
+                <Label Text="Time of Sunset"
+ Style="{StaticResource labelStyle}" />
+                <Label Text="{Binding Sunset, Converter={StaticResource longToDateTimeConverter}}"
+ Style="{StaticResource labelResultStyle}" />
+                <Label Text="Day Duration"
+ Style="{StaticResource labelStyle}" />
+                <Label Text="{Binding DayDuration, Converter={StaticResource dayDurationTimeConverter}}"/>
+                <BoxView HeightRequest="2"
+         Margin="0,10,0,10"
+         BackgroundColor="#B0DAFF" />
+                <Label Text="Weather 3-hour forecast:"
+ Style="{StaticResource labelForecastStyle}" />
+
+                <CollectionView ItemsSource="{Binding WeatherDataRecords}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout Padding="10">
+                                <Label Text="Temperature"
+                       Style="{StaticResource labelStyle}" />
+                                <Label Text="{Binding Main.Temperature}"
+                       Style="{StaticResource labelResultStyle}" />
+
+                                <Label Text="Feels like:"
+                       Style="{StaticResource labelStyle}" />
+                                <Label Text="{Binding Main.FeelsLike}"
+                       Style="{StaticResource labelResultStyle}" />
+
+                                <Label Text="Wind Speed"
+                       Style="{StaticResource labelStyle}" />
+                                <Label Text="{Binding Wind.Speed}"
+                       Style="{StaticResource labelResultStyle}" />
+
+                                <Image Source="{Binding Weather[0].IconURL}"
+                       WidthRequest="50"
+                       HeightRequest="50" />
+
+                                <Label Text="Humidity"
+                       Style="{StaticResource labelStyle}" />
+                                <Label Text="{Binding Main.Humidity}"
+                       Style="{StaticResource labelResultStyle}" />
+
+                                <Label Text="Visibility"
+                       Style="{StaticResource labelStyle}" />
+                                <Label Text="{Binding Visibility}"
+                       Style="{StaticResource labelResultStyle}" />
+
+                                <BoxView HeightRequest="2"
+         Margin="10,10,10,10"
+         BackgroundColor="#B0DAFF" />
+
+                            </StackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </StackLayout>
+        </ScrollView>
+
+    </StackLayout>
+
+</ContentPage>
